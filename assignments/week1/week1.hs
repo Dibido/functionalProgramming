@@ -42,18 +42,20 @@
 thisOldMan :: String
 thisOldMan = printVerses "" 0
 
+printVerses :: String->Int->String
 printVerses s n
   | n >= 10 = s
   | otherwise = printVerse s n ++ printVerses s (n+1)
 
-printVerse s n = s ++ fst poemSentenceNumber ++ fst (poemValues !! n) ++ snd poemSentenceNumber ++ fst poemSentenceThing ++ snd (poemValues !! n) ++ snd poemSentenceThing ++ poemEnd
+printVerse :: String->Int->String
+printVerse s n = s ++ head poemSentenceNumber ++ head (poemValues !! n) ++ last poemSentenceNumber ++ head poemSentenceThing ++ last (poemValues !! n) ++ last poemSentenceThing ++ poemEnd
 
-poemSentenceNumber :: (String, String)
-poemSentenceNumber = ("This old man, he played ", ",\n")
-poemSentenceThing :: (String, String)
-poemSentenceThing = ("He played knick-knack on my ", ";\n")
+poemSentenceNumber :: [String]
+poemSentenceNumber = ["This old man, he played ", ",\n"]
+poemSentenceThing :: [String]
+poemSentenceThing = ["He played knick-knack on my ", ";\n"]
 
 poemEnd :: String
 poemEnd = "With a knick-knack paddywhack,\nGive the dog a bone,\nThis old man came rolling home.\n\n"
-poemValues :: [(String, String)]
-poemValues = [("one", "thumb"), ("two", "shoe"), ("three", "knee"), ("four", "door"), ("five", "hive"), ("six", "sticks"), ("seven", "heaven"), ("eight", "gate"), ("nine", "spine"), ("ten", "again")]  
+poemValues :: [[String]]
+poemValues = [["one", "thumb"], ["two", "shoe"], ["three", "knee"], ["four", "door"], ["five", "hive"], ["six", "sticks"], ["seven", "heaven"], ["eight", "gate"], ["nine", "spine"], ["ten", "again"]]
