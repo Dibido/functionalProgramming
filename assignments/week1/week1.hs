@@ -36,6 +36,7 @@
 -- 1.3
 -- See Database.hs
 -- 1.4
+
 -- 1.5
 -- 1.6
 -- 1.7
@@ -59,3 +60,19 @@ poemEnd :: String
 poemEnd = "With a knick-knack paddywhack,\nGive the dog a bone,\nThis old man came rolling home.\n\n"
 poemValues :: [[String]]
 poemValues = [["one", "thumb"], ["two", "shoe"], ["three", "knee"], ["four", "door"], ["five", "hive"], ["six", "sticks"], ["seven", "heaven"], ["eight", "gate"], ["nine", "spine"], ["ten", "again"]]
+-- 1.8
+-- See Shapes.hs
+-- 1.10
+-- See Strings.hs
+-- 1.11
+isPrime :: Int -> Bool
+isPrime n = findPrime n [2..(n-1)]
+findPrime :: Int -> [Int] -> Bool
+findPrime n [] = if n /= 1 then True else False
+findPrime n [x] 
+  | isDivisible n x = False
+  | otherwise = True
+findPrime n (x:xs)
+  | isDivisible n x = False
+  | otherwise = findPrime n xs
+isDivisible n1 n2 = n1 `rem` n2 == 0
