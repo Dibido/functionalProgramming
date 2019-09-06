@@ -36,7 +36,7 @@
 -- 1.3
 -- See Database.hs
 -- 1.4
-
+-- 
 -- 1.5
 -- 1.6
 -- 1.7
@@ -76,3 +76,35 @@ findPrime n (x:xs)
   | isDivisible n x = False
   | otherwise = findPrime n xs
 isDivisible n1 n2 = n1 `rem` n2 == 0
+-- 1.14
+-- Triangle
+triangle :: Int -> String
+triangle n = getTriangleLine "" 0 n
+
+getTriangleLine :: String -> Int -> Int -> String
+getTriangleLine s n1 n2
+  | n2 == 0 = s
+  | otherwise = s ++ getSpaces "" (n2-1) ++ getStars "" (n1+1) ++ "\n" ++ getTriangleLine s (n1+1) (n2-1)
+
+getSpaces :: String -> Int -> String
+getSpaces s n 
+  | n == 0 = s
+  | otherwise = s ++ " " ++ getSpaces s (n-1)
+
+getStars :: String -> Int -> String
+getStars s n
+  | n == 0 = s
+  | n == 1      = s ++ "*" ++ getStars s (n-1)
+  | otherwise   = s ++ "*" ++ getStars s (n-1) ++ "*"
+
+--triangle 5
+-- Result = "     ∗\n   ∗ ∗ ∗\n  ∗ ∗ ∗ ∗ ∗\n ∗ ∗ ∗ ∗ ∗ ∗ ∗\n∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗\n"
+
+--Christmas tree
+christmasTree :: Int -> String
+christmasTree n = makeTree "" 0 n
+
+makeTree :: String -> Int -> Int -> String
+makeTree s n1 n2 
+  | n1 == n2  = s ++ triangle n1
+  | otherwise = s ++ triangle n1 ++ makeTree s (n1+1) n2
