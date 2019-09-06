@@ -16,6 +16,3 @@ getStars s n
   | n == 0 = s
   | n == 1      = s ++ "*" ++ getStars s (n-1)
   | otherwise   = s ++ "*" ++ getStars s (n-1) ++ "*"
-
---triangle 5
--- Result = "     ∗\n   ∗ ∗ ∗\n  ∗ ∗ ∗ ∗ ∗\n ∗ ∗ ∗ ∗ ∗ ∗ ∗\n∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗\n"
