@@ -81,16 +81,19 @@ isDivisible n1 n2 = n1 `rem` n2 == 0
 triangle :: Int -> String
 triangle n = getTriangleLine "" 0 n n
 
+-- Make an entire line of the triangle and recursively add lines to for the triangle
 getTriangleLine :: String -> Int -> Int -> Int -> String
 getTriangleLine s stars spaces triangles
   | triangles == 0 = s
   | otherwise = s ++ getSpaces "" (spaces-1) ++ getStars "" (stars+1) ++ "\n" ++ getTriangleLine s (stars+1) (spaces-1) (triangles-1)
 
+-- Get the number of spaces required before the stars
 getSpaces :: String -> Int -> String
 getSpaces s n 
   | n == 0 = s
   | otherwise = s ++ " " ++ getSpaces s (n-1)
 
+-- Get the number of stars, first only one star then n stars with a star at either side
 getStars :: String -> Int -> String
 getStars s n
   | n == 0 = s
@@ -101,6 +104,7 @@ getStars s n
 christmasTree :: Int -> String
 christmasTree n = makeTree "" 0 n
 
+-- Make a tree by adding extra spaces to the triangles to make them line up
 makeTree :: String -> Int -> Int -> String
 makeTree s n1 n2 
   | n1 == n2  = s ++ triangle n2
