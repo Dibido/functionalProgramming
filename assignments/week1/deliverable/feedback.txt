@@ -1,0 +1,22 @@
+Grade: 3
+
+Feedback:
+
+    -- Get the number of stars, first only one star then n stars with a star at either side
+    getStars :: String -> Int -> String
+    getStars s n
+      | n == 0 = s
+      | n == 1      = s ++ "*" ++ getStars s (n-1)
+      | otherwise   = s ++ "*" ++ getStars s (n-1) ++ "*"
+
+Why the extra string argument? You're only making it difficult for yourself here!
+
+    *Shapes
+    ?> putStrLn $ getStars "A" 3
+    A*A*A*A**
+
+The extra argument is pasted in-between every star...
+
+Also, the case for `n == 1` is redundant.
+
+Similar for `makeTree`.
