@@ -36,7 +36,6 @@
 -- 1.3
 -- See Database.hs
 -- 1.4
-
 -- 1.5
 -- 1.6
 -- 1.7
@@ -76,3 +75,40 @@ findPrime n (x:xs)
   | isDivisible n x = False
   | otherwise = findPrime n xs
 isDivisible n1 n2 = n1 `rem` n2 == 0
+-- 1.12 UNFINISHED
+primeFactors :: Int -> String
+primeFactors n
+  | isPrime n = (show n) ++ " is prime"
+  | otherwise = findFactors n 0 0 [x | x <- [0..n], isPrime x]
+
+findFactors :: Int -> Int -> Int -> [Int] -> String
+findFactors n1 i1 i2 ns
+  | (ns !! i1) * (ns !! i2) == n1 = (show (ns !! i1)) ++ "*" ++ (show (ns !! i2))
+  | i2 == (length ns)-1 = findFactors n1 (i1+1) 0 ns
+  | i1 == (length ns)-1 = "unable to find factors"
+  | otherwise = findFactors n1 i1 (i2+1) ns
+-- 1.13
+numberSum :: Int -> Int
+numberSum n = sumNumber 0 n 0
+
+sumNumber :: Int -> Int -> Int -> Int
+sumNumber counter n index
+  | index >= length (show n) = counter
+  | otherwise = addNumber counter n index + sumNumber counter n (index+1)
+  where addNumber counter number index = counter + read ([show (number) !! index]) :: Int
+-- 1.15
+g = 9.81
+v_x t v0 theta0 = v0 * cos theta0
+v_y t v0 theta0 = v0 * sin theta0 - g * t
+x_at t v0 theta0 = v0 * cos theta0 * t
+y_at t v0 theta0 = v0 * sin theta0 * t - (1/2) * g * t**2
+h x v0 theta0 = tan theta0 * x - (g / 2*(v0 * cos theta0)) * x**2
+
+highestPoint v0 theta0 = ((v0 * sin theta0) / g) 
+maximalHeight v0 theta0 = y_at (highestPoint v0 theta0)
+getDistance v0 theta0 = x_at (2 * (highestPoint v0 theta0)) v0 theta0
+
+best_angle v0 = findBestAngle v0  0
+findBestAngle v0 theta0 
+  | getDistance v0 theta0 > getDistance v0 (theta0+(1/100*pi)) = theta0
+  | otherwise = findBestAngle v0 (theta0+(1/100*pi))
