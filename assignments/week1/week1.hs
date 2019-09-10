@@ -96,6 +96,39 @@ sumNumber counter n index
   | index >= length (show n) = counter
   | otherwise = addNumber counter n index + sumNumber counter n (index+1)
   where addNumber counter number index = counter + read ([show (number) !! index]) :: Int
+-- 1.14
+-- Triangle
+triangle :: Int -> String
+triangle n = getTriangleLine "" 0 n n
+
+-- Make an entire line of the triangle and recursively add lines to for the triangle
+getTriangleLine :: String -> Int -> Int -> Int -> String
+getTriangleLine s stars spaces triangles
+  | triangles == 0 = s
+  | otherwise = s ++ getSpaces "" (spaces-1) ++ getStars "" (stars+1) ++ "\n" ++ getTriangleLine s (stars+1) (spaces-1) (triangles-1)
+
+-- Get the number of spaces required before the stars
+getSpaces :: String -> Int -> String
+getSpaces s n 
+  | n == 0 = s
+  | otherwise = s ++ " " ++ getSpaces s (n-1)
+
+-- Get the number of stars, first only one star then n stars with a star at either side
+getStars :: String -> Int -> String
+getStars s n
+  | n == 0 = s
+  | n == 1      = s ++ "*" ++ getStars s (n-1)
+  | otherwise   = s ++ "*" ++ getStars s (n-1) ++ "*"
+
+--Christmas tree
+christmasTree :: Int -> String
+christmasTree n = makeTree "" 0 n
+
+-- Make a tree by adding extra spaces to the triangles to make them line up
+makeTree :: String -> Int -> Int -> String
+makeTree s n1 n2 
+  | n1 == n2  = s ++ triangle n2
+  | otherwise = s ++ getTriangleLine "" 0 (n2) n1 ++ makeTree s (n1+1) n2
 -- 1.15
 g = 9.81
 v_x t v0 theta0 = v0 * cos theta0

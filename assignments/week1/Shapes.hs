@@ -23,11 +23,13 @@ perimeter (Square l) = 4 * l
 perimeter (Rectangle l w) = 2 * (l + w)
 
 center       :: Shape -> (Double, Double)  -- x- and y-coordinates
-center (Circle r) = (0, 0)
+center (Circle r) = (r, r)
 center (Square l) = (l/2, l/2)
 center (Rectangle l w) = (l/2, w/2)
 
 boundingBox  :: Shape -> (Double, Double)  -- width and height
-boundingBox (Circle r) = (r/2, r/2)
+boundingBox (Circle r) = (r*2, r*2)
 boundingBox (Square l) = (l, l)
-boundingBox (Rectangle l w) = (w, l)
+boundingBox (Rectangle l w)
+  | l > w = (l,l)
+  | w > l = (w,w)
