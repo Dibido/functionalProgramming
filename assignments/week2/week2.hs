@@ -43,7 +43,10 @@ square (x,y) = ((x*x), (y*y))
 -- type : (a, b, c)
 convert :: (a, (b,c)) -> (a,b,c)
 convert (a, (b,c)) = (a,b,c)
---2.5
+--2.5.1
+-- (+ 4) is well 
+--2.5.2
+--2.5.3
 --2.8
 -- f1 :: [a] -> a -> Int -> Int
 -- f2 :: [a] -> a -> Int
