@@ -1,26 +1,4 @@
-module Week3 where
-import Prelude hiding (Word)
-import Data.List
-lorem = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam voluptua. At vero eos et accusam et justo duo doloreset ea rebum. Stet clita kasd gubergren, no sea takimata sanctus estLorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetursadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore etdolore magna aliquyam erat, sed diam voluptua. At vero eos et accusamet justo duo dolores et ea rebum. Stet clita kasd gubergren, no seatakimata sanctus est Lorem ipsum dolor sit amet."
-text = "hallo wij zijn aan het programmeren"
---3.1
---type Word = String
---wordList :: String -> [(Word, Int)]
---wordList s = [("ba",2)]
---wordList s = let values = group $ sort $ words $ lorem [((map $ length $ values), (map $ head $ values))
---3.2
---3.3
-runs :: (Ord a) => [a] -> [[a]]
-runs s = getRuns s [[]]
-
-getRuns :: (Ord a) => [a] -> [[a]] -> [[a]]
-getRuns [] result = result
-getRuns (x:xs) [[]] = getRuns xs [[x]]
-getRuns (x:xs) result
-  | x >= (last (last result)) = getRuns xs (init result ++ [(last result) ++ [x]])
-  | otherwise = getRuns xs (result ++ [[x]])
--- This function gets all the different runs
---3.4 See DNA.hs
+-- Assignments Week 3 Dibran Dokter s1047390 & Marnix Lukasse s1047400
 --3.5 See QuickTest.hs
 --3.32
 data RD    = M | CM | D | CD | C | L | XL | X | IX | V | IV |I
