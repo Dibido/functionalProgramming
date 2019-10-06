@@ -1,9 +1,10 @@
 module Unfold
 where
 
-import Prelude hiding (take)
+import Prelude hiding (take, (++))
 import qualified Data.List as L
 import Data.Either
+import Data.Maybe
 
 unfoldr :: (t -> Maybe (a, t)) -> t -> [a]
 unfoldr rep seed = produce seed
@@ -35,4 +36,13 @@ primes :: [Integer]
 primes = unfoldr (\(p:xs) -> Just (p, (Prelude.filter (notMultipleOf p) xs))) [2..]
 
 unfoldr' :: (t -> Maybe (a, t)) -> t -> [a]
-unfoldr' rep seed = apo rep [] [seed]
+unfoldr' rep seed = apo (\t -> Right (fromJust (rep t))) seed
+
+fibs' = unfoldr' (\(a,b) -> Just (a, (b,a+b))) (0,1)
+
+(++) :: [a] -> [a] -> [a]-- Defined in ‘GHC.Base’
+infixr 5 ++
+(++) l1 l2 = apo (\s -> if null s then Left l2 else Right (head s, tail s)) l1
+
+insert' :: (Ord a) => a -> [a] -> [a]
+insert' x l = apo (\s -> if null s then Left s else if head s >= x then Left (x : s) else Right (head s, tail s) ) l

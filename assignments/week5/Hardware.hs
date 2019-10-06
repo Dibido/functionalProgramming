@@ -28,7 +28,10 @@ I >< I  =  O
 
 mapr :: ((a, state) -> (b, state)) -> ([a], state) -> ([b], state)
 
-mapr f (as, state) = foldr (\x r -> (fst (f (x, snd(r)) : r, snd (f (x, snd(r)))))) ([],0) as
+--mapr f (as, state) = foldr (\x r -> (fst (f (x, snd(r)) : r, snd (f (x, snd(r)))))) ([],0) as
+
+mapr fA (xs, carry) = (map fst $ fullResult, snd (head fullResult))
+  where fullResult = reverse $ unfoldr (\(x, y) -> if (null x) then Nothing else Just (fA (head x, y), ((tail x), snd $ fA (head x, y)))) (reverse xs, carry)
 
 -- (mapr :: (((Bit, Bit), Carry) -> (Bit, Carry) -> ([(Bit, Bit)], Carry) -> ([Bit], Carry)) fullAdder $ (zip [I, I, O, O] [I, O, I, O], O) 
 
