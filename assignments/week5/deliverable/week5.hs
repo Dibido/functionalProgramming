@@ -1,0 +1,5 @@
+-- Assignments Week 5 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+--5.6
+-- See Hardware.hs
+--5.7
+-- See Unfold.hs
