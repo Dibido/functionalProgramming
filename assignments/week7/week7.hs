@@ -1,4 +1,4 @@
---
+-- Assignments Week 7 Dibran Dokter s1047390 & Marnix Lukasse s1047400
 --7.4
 -- foldbtree combines all the tips using a function(monoid) to combine all the tips into a single value of the same type.
 -- tips simply makes a list containing all the values in the tips for a given tree.
