@@ -73,10 +73,15 @@ reverseMap input = map (\(a,b) -> (b,a)) input
 findChar :: [([Bit], Char)] -> [Bit] -> Int -> (Char,[Bit])
 findChar codeList bitStream len
   | res == Nothing = findChar codeList bitStream (len+1) 
-  | otherwise = (head $ show res, (drop len bitStream))
-  where res = (lookup codeList (take len bitStream))
+  | otherwise = (head $ drop 1 $ reverse $ show res, (drop len bitStream))
+  where res = (lookup (take len bitStream) codeList)
 
+  {-| otherwise = (head $ drop 1 $ reverse $ show res, (drop len bitStream))  -- (head $ show $ res, (drop len bitStream))-}
+findTest = findChar [([O,O], 'a'), ([I,I], 'b')] [O,O,I,I,O,O] 1
 
+ct = huffman (frequencies "hello world")
+coded = encode ct "hello world"
+decodeTest = decode ct coded
 
 --reverseMap input = map (\(a,b) -> (b,a)) input
 

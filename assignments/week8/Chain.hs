@@ -28,9 +28,9 @@ split []        =  error "split: empty list"
 split [_a]      =  []
 split (a : as)  =  ([a], as) : [ (a : bs, cs) | (bs, cs) <- split as]
 
--- minCost [(10, 30), (30, 5), (5, 60)]
--- minCost [ (i, i + 1) | i <- [1 .. 3] ]
--- minCost [ (i, i + 1) | i <- [1 .. 9] ]
+minTest1 = minCost [(10, 30), (30, 5), (5, 60)]
+minTest2 = minCost [ (i, i + 1) | i <- [1 .. 3] ]
+minTest3 = minCost [ (i, i + 1) | i <- [1 .. 9] ]
 
 -- minimumCost   :: (size -> size -> With Cost size) -> [size] -> With Cost size
 
