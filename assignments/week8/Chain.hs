@@ -32,6 +32,23 @@ minTest1 = minCost [(10, 30), (30, 5), (5, 60)]
 minTest2 = minCost [ (i, i + 1) | i <- [1 .. 3] ]
 minTest3 = minCost [ (i, i + 1) | i <- [1 .. 9] ]
 
--- minimumCost   :: (size -> size -> With Cost size) -> [size] -> With Cost size
+minimumCost   :: (size -> size -> With Cost size) -> [size] -> With Cost size
+minimumCost f [a] = 0 :- a
+minimumCost f as  = minimum [compareLists (c1 :- s1) (c2 :- s2) | (c1 :- s1, c2 :- s2) <- [((minimumCost f bs), (minimumCost f cs)) | (bs,cs) <- split as ]]
+  where compareLists (c1 :- s1) (c2 :- s2) = (c1 + c + c2) :- s where c :- s = f s1 s2
 
--- optimalChain  :: (size -> size -> With Cost size) -> [size] -> With Cost (With size (Tree size))
+testMinimumCost1 = minimumCost (<**>) [(10, 30), (30, 5), (5, 60)]
+testMinimumCost2 = minimumCost (<**>) [ (i, i + 1) | i <- [1..3] ]
+testMinimumCost3 = minimumCost (<**>) [ (i, i + 1) | i <- [1..9] ]
+
+concatCost :: Integer -> Integer -> With Cost Integer
+concatCost a b = a :- (a + b)
+
+addCost :: Integer -> Integer -> With Cost Integer
+addCost a b = max a b :- a + b
+
+-- Optimal chain.
+
+optimalChain  :: (size -> size -> With Cost size) -> [size] -> With Cost (With size (Tree size))
+optimalChain f [a] = 0 :- (a :- (Leaf a))
+--optimalChain f as = 
