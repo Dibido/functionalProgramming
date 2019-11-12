@@ -1,0 +1,5 @@
+-- Assignments Week 8 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+--8.1-8.4
+--See huffman.hs
+--9.2
+--See Chain.hs
