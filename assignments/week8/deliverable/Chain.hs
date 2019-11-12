@@ -53,4 +53,4 @@ addCost a b = max a b :- a + b
 optimalChain  :: (size -> size -> With Cost size) -> [size] -> With Cost (With size (Tree size))
 optimalChain f [a] = 0 :- (a :- (Leaf a))
 --optimalChain f as = 
--- At this point we got stuck and gave up because we had a hard time even understanding the assignment and we didn't even know where to start with coming up with a solution.
+-- At this point we got stuck and didnt know how to proceed because we had a hard time even understanding the assignment and we didn't even know where to start with coming up with a solution.
