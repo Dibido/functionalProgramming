@@ -1,0 +1,5 @@
+-- Assignments Week 10 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+-- 11.1
+-- See Evaluator.hs
+-- 11.2
+-- See Evaluator.hs
