@@ -1,0 +1,5 @@
+-- Assignments Week 9 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+-- 10.1
+-- See WordCount.hs
+-- 10.2
+-- See Mastermind.hs
