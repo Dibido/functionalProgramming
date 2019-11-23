@@ -46,13 +46,13 @@ instance Functor Environ where
 
 instance Applicative Environ where
 -- pure :: a -> Environ a
-   pure x = EN $ \env -> x
+   pure x = return x
 -- (<*>) :: Environ (a -> b) -> Environ a -> Environ b 
    EN f <*> EN x  = EN $ \env -> f env (x env)
 
 instance Monad Environ where
 -- return a -> Environ a
-   return     = pure
+   return x   = EN $ \env -> x
 -- (>>=) :: Environ a -> (a -> Environ b) -> Environ b
    EN m >>= f = error "not implemented"
 
