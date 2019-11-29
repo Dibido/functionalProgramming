@@ -1,0 +1,5 @@
+-- Assignments Week 11 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+-- 11.4
+-- See LambdaEval.hs
+-- 11.5
+
