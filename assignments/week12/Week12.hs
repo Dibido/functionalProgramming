@@ -1,0 +1,6 @@
+-- Assignments Week 12 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+-- 5.3
+-- The difference between these two grammars is that one is expressed purely in terms of expr and the other one is expressed in a way that allows for multiple levels of values.
+-- See Expression.hs
+-- 5.4
+-- See Lambda.hs
