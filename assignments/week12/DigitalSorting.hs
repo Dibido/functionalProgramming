@@ -25,22 +25,21 @@ instance Key () where
 
    insert () f = Single . f . toMaybe 
 
-instance Map Bool where
-  data Map Bool val = Something
-  empty = 
-
-
 instance (Key key1, Key key2) => Key (Either key1 key2) where
-   data Map (Either key1 key2) val  = NotYetImplementedE
+   data Map (Either key1 key2) val  = M (Map key1 val, Map key2 val)
 
 -- empty  ::  (Key key1, Key key2) => Map (Either key1 key2) val
-   empty = error "empty: not yet implemented"
+   empty = map ()
 
 -- lookup ::  (Key key1, Key key2) => Either key1 key2 -> Map (Either key1 key2) val -> Maybe val
-   lookup = error "lookup: not yet implemented"
+   lookup _ (Empty) = Nothing
+   lookup (Left k) (M (m,n)) = (lookup k m)
+   lookup (Right k) (M (m,n)) = (lookup k n)
    
 -- insert ::  key -> (Maybe val -> val) -> Map (Either key1 key2) val -> Map (Either key1 key2) val
-   insert = error "insert: not yet implemented"
+   insert k f (M (m,n)) 
+      | Left k f (M (m,n)) = insert k f m 
+      | Right k f (M (m,n)) = insert k f n 
    
    
 instance (Key key1, Key key2) => Key (key1, key2) where

@@ -4,3 +4,5 @@
 -- See Expression.hs
 -- 5.4
 -- See Lambda.hs
+-- 12.3
+-- See DigitalSorting.hs
