@@ -17,15 +17,15 @@ testLambda2 = Fun "x" (Var "x")
 -- Should look like the following :
 -- "a \\b->b"
 -- thus, variable is just 'a'
--- and function is "\x->y"
+-- and function is "\\x->y"
 -- and application is simply "a b", with handling the parentheses
--- So we use the \x->x syntax and allow only single letter variable names
+-- So we use the \\x->x syntax and allow only single letter variable names
 {-
 This gives the following grammar:
   expr := expr :@ expr// An expression is either a term or an application
     | term
 
-  term := '\\' factor '->' factor // a term is either a factor or it is a lambda
+  term := '\\' factor '->' factor // a term is either a factor or it is a expr
     | factor
 
   factor := letter // a factor is a letter
@@ -33,15 +33,17 @@ This gives the following grammar:
 -}
 
 -- This gives the following in code:
-lambda :: Parser (Lambda String)
+{-lambda :: Parser (Lambda String)
 lambda = do 
     x <- letter; space ; y <- letter ; return ((Var [x]) :@ (Var [y]))
     <|> do space; string "\\"; space ; x <- letter; space ; string "->"; space; y <- letter; return (Fun [x] (Var [y]))
-    <|> do x <- letter ; return (Var [x])
+    <|> do x <- letter ; return (Var [x]) -}
 
+-- In grammar form:
 expr, term, factor :: Parser (Lambda String)
 expr = do 
-        x <- letter; space ; y <- letter ; return ((Var [x]) :@ (Var [y]))
+        x <- term; space; y <- term; return (x :@ y)
+        <|> do x <- letter; space ; y <- letter ; return ((Var [x]) :@ (Var [y]))
         <|> do term
 term = do 
         space; string "\\"; space ; x <- letter; space ; string "->"; space; y <- letter; return (Fun [x] (Var [y]))
@@ -52,6 +54,9 @@ factor = do x <- letter; return (Var [x])
 testParse1 = "a"
 testParse2 = "\\x -> y"
 testParse3 = "a b"
+testParse4 = "a \\x->y"
+testParse5 = "(a (b c))"
+testParse6 = "\\x->\\y->y"
 
 -- Function that pretty prints the value in the Lambda var
 pretty :: Lambda String -> String
