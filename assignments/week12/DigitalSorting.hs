@@ -29,7 +29,7 @@ instance (Key key1, Key key2) => Key (Either key1 key2) where
    data Map (Either key1 key2) val  = M (Map key1 val, Map key2 val)
 
 -- empty  ::  (Key key1, Key key2) => Map (Either key1 key2) val
-   empty = map ()
+   empty = map (empty, emtpy)
 
 -- lookup ::  (Key key1, Key key2) => Either key1 key2 -> Map (Either key1 key2) val -> Maybe val
    lookup _ (Empty) = Nothing
@@ -38,8 +38,8 @@ instance (Key key1, Key key2) => Key (Either key1 key2) where
    
 -- insert ::  key -> (Maybe val -> val) -> Map (Either key1 key2) val -> Map (Either key1 key2) val
    insert k f (M (m,n)) 
-      | Left k f (M (m,n)) = insert k f m 
-      | Right k f (M (m,n)) = insert k f n 
+   insert (Left k) f (M (m,n)) = (insert k f m, n) 
+   insert (Right k) f (M (m,n)) = (m, insert k f n) 
    
    
 instance (Key key1, Key key2) => Key (key1, key2) where
