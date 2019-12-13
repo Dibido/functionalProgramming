@@ -1,4 +1,5 @@
 import Data.Maybe
+import Control.Monad
 
 infixl 9 :@:
 
@@ -17,6 +18,29 @@ data Value = IntVal Integer | FunVal Env String Expr
   deriving Show
   
 type Env = [(String,Value)]
+
+type Error = String
+newtype EvalM a = EvalM { unEvalM :: Env -> Either Error a }
+  deriving (Functor)
+
+instance Applicative EvalM where
+  pure = return
+  (<*>) = ap
+
+instance Monad EvalM where
+  return x = EvalM $ \_env -> Right x
+  ex >>= ey = EvalM $ \env -> do
+    x <- unEvalM ex env  -- :: Either Error a
+    unEvalM (ey x) env   -- :: Either Error b
+
+getEnv :: EvalM Env
+getEnv = EvalM $ \env -> Right env
+
+withEnv :: Env -> EvalM a -> EvalM a
+withEnv newEnv ea = EvalM $ \_oldEnv -> unEvalM ea newEnv
+
+errorMsg :: String -> EvalM a
+errorMsg err = EvalM $ \_ -> Left err
 
 applyIntOp :: Op -> Value -> Value -> Value
 applyIntOp op (IntVal v1) (IntVal v2) = 
