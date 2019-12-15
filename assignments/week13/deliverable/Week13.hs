@@ -1,0 +1,5 @@
+-- Assignments Week 13 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+--12.4
+-- See Printf.hs
+--13.1
+-- See FoldUnfold.hs
