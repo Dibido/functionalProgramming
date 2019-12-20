@@ -1,0 +1,5 @@
+-- Assignments Week 14 Dibran Dokter s1047390 & Marnix Lukasse s1047400
+-- 13.2
+-- See Minimax2.hs
+-- 13.3
+-- See Sorting.hs
